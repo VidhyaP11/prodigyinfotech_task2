@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FULL SCREEN</title>
+</head>
+<body>
+    <style>
+        body{
+         display:flex;
+         align-items:center;
+         justify-content: center;
+         height:100vh;
+        }
+        #con{
+            background-color: gray;
+            width:300px;
+            height:200px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+       
+    </style>
+    <div id="con">
+        <button onclick=view()>View Fullscreen</button>
+       
+    </div>
+    <script>
+        function view()
+        {
+            const ele =document.getElementById('con');
+            ele.requestFullscreen();
+        }
+    </script>
+</body>
+</html>

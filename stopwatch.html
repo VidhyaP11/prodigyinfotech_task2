@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+       body {
+        background-color: darkslategray;
+        padding-top: 25vh;
+        text-align: center;
+        width: 100vw;
+       }
+       #con {
+        margin: auto;
+        width: 500px;
+        height: 250px;
+        background-color: azure;
+        text-align: left;
+        padding: 25px;
+       }
+       #main2 {
+        text-align: center;
+       }
+       .images {
+        display: flex;
+        justify-content: space-evenly;
+       }
+       .image img {
+        width: 100%;
+        height: 100%;
+       }
+       .image {
+        width: 100px;
+        height: 100px;
+       }
+       .FullScreen{
+        margin: auto;
+        width: 500px;
+        height: 250px;
+        background-color: azure;
+        text-align: left;
+        padding: 25px;
+       }
+    </style>
+</head>
+<body> 
+    <h1>Stopwatch</h1>
+    <div id="con">
+        <i class="fa-solid fa-expand" onclick="toggleFullscreen()" id="enterexit"></i>
+        <div id="main2"> 
+            <h1 id="tt">00:00:00:00</h1>
+            <div class="images">
+                <div class="image">
+                    <img src="start.jpg" alt="Start" id="one" onclick="s()">
+                </div>
+                <div class="image">
+                    <img src="pause.jpg" alt="Pause" id="two" onclick='p()'>
+                </div>
+                <div class="image">
+                    <img src="reset.jpg" alt="Reset" id="three" onclick='r()'>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let [h, m, se, ml] = [0, 0, 0, 0];
+        let int = null;
+
+        function s() {
+            if (int !== null) {
+                clearInterval(int);
+            }
+            int = setInterval(display, 10);
+        }
+
+        function p() {
+            clearInterval(int);
+        }
+
+        function r() {
+            clearInterval(int);
+            [h, m, se, ml] = [0, 0, 0, 0];
+            document.getElementById('tt').innerHTML ="00:00:00:00";
+        }
+
+        function display() {
+            ml += 10;
+            if (ml === 1000) {
+                ml = 0;
+                se++;
+                if (se === 60) {
+                    se = 0;
+                    m++;
+                    if (m === 60) {
+                        m = 0;
+                        h++;
+                    }
+                }
+            }
+            let hour = h < 10 ? "0" + h : h;
+            let min = m < 10 ? "0" + m : m;
+            let sec = se < 10 ? "0" + se : se;
+            let mill = ml < 10 ? "00" + ml : ml < 100 ? "0" + ml : ml;
+            document.getElementById('tt').innerHTML = `${hour}:${min}:${sec}:${mill}`;
+        }
+
+        function toggleFullscreen() {
+            const ele = document.getElementById('con');
+            const icon = document.getElementById('enterexit');
+
+            if (!document.fullscreenElement) {
+                ele.requestFullscreen();
+                icon.classList.remove('fa-expand');
+                icon.classList.add('fa-compress');
+                
+            ele.addEventListener('msfullscreenchange',()=>{
+                ele.classList.add('FullScreen');
+            })
+            } else {
+                document.exitFullscreen();
+                icon.classList.remove('fa-compress');
+                icon.classList.add('fa-expand');
+            }
+            ele.addEventListener('fullscreenchang')
+        }
+    </script>
+</body>
+</html>
